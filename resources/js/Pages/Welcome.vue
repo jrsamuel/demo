@@ -32,7 +32,7 @@ defineProps({
             </template>
         </div>
 
-        <div class="text-2xl text-green-700">Hello {{ name }}</div>
+        <div class="font-thin tracking-wider text-4xl text-green-700">Laravel Learnings</div>
 
 
     </div>

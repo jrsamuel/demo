@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Http\Controllers\ChirpController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as HttpRequest;
@@ -34,34 +34,47 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/users', function (Request $request) {
+// Route::get('/users', function (Request $request) {
 
 
-    $users = User::query()
-        ->when(Request::query('search'), function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        })
-        ->paginate(10)
-        ->withQueryString()
-        ->through(fn ($user) => [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
+//     $users = User::query()
+//         ->when(Request::query('search'), function ($query, $search) {
+//             return $query->where('name', 'like', '%' . $search . '%');
+//         })
+//         ->paginate(10)
+//         ->withQueryString()
+//         ->through(fn ($user) => [
+//             'id' => $user->id,
+//             'name' => $user->name,
+//             'email' => $user->email,
 
-        ]);
+//         ]);
 
 
 
-    return Inertia::render('Users', [
-        'users' => $users,
-        'filters' => Request::only('search'),
+//     return Inertia::render('Users', [
+//         'users' => $users,
+//         'filters' => Request::only('search'),
 
+//     ]);
+// })->middleware(['auth', 'verified'])->name('users');
+
+Route::resource('chirps', ChirpController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::get('/hygraph', function () {
+    return Inertia::render('Hygraph');
+})->middleware(['auth', 'verified'])->name('hygraph');
+
+Route::get('/stripe', function () {
+    return Inertia::render('Stripe', [
+        'intent' => auth()->user()->createSetupIntent()
     ]);
-})->middleware(['auth', 'verified'])->name('users');
+})->middleware(['auth', 'verified'])->name('stripe');
 
-Route::get('/settings', function () {
-    return Inertia::render('Settings');
-})->middleware(['auth', 'verified'])->name('settings');
+
+
 
 
 

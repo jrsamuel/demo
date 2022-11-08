@@ -31,14 +31,11 @@ const showingNavigationDropdown = ref(false);
                                          :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('users')"
-                                         :active="route().current('users')">
-                                    Users
+                                <NavLink :href="route('stripe')"
+                                         :active="route().current('stripe')">
+                                    Stripe
                                 </NavLink>
-                                <NavLink :href="route('settings')"
-                                         :active="route().current('settings')">
-                                    Settings
-                                </NavLink>
+
                             </div>
                         </div>
 
@@ -78,18 +75,18 @@ const showingNavigationDropdown = ref(false);
 
                         <!-- Hamburger -->
                         <div class="flex -mr-2 items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
+                            <button @click="showingNavigationDropdown = !showingNavigationDropdown"
                                     class="rounded-md p-2 transition ease-in-out text-gray-400 duration-150 inline-flex items-center justify-center hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                                 <svg class="h-6 w-6"
                                      stroke="currentColor"
                                      fill="none"
                                      viewBox="0 0 24 24">
-                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                                    <path :class="{ 'hidden': showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown }"
                                           stroke-linecap="round"
                                           stroke-linejoin="round"
                                           stroke-width="2"
                                           d="M4 6h16M4 12h16M4 18h16" />
-                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                                    <path :class="{ 'hidden': !showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
                                           stroke-linecap="round"
                                           stroke-linejoin="round"
                                           stroke-width="2"
@@ -101,7 +98,7 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+                <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                      class="sm:hidden">
                     <div class="space-y-1 pt-2 pb-3">
                         <ResponsiveNavLink :href="route('dashboard')"
